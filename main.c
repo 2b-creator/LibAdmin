@@ -15,11 +15,18 @@ int main(void)
     char title[TITLE_MAX];
     char author[AUTHOR_MAX];
     int id = 0;
+
+    int is_lend = 0;
+
+    char name[50];
+    char date[50];
+    char time[50];
+
     book books;
 starts:
     choser = 0;
     utils();
-    while (!(choser == 1 || choser == 2 || choser == 3 || choser == 4))
+    while (!(choser == 1 || choser == 2 || choser == 3 || choser == 4 || choser == 5))
     {
         scanf("%d", &choser);
     }
@@ -28,13 +35,14 @@ starts:
     case 1:
         sub_1();
         scanf("%s %s %d", books.title, books.author, &books.book_id);
+        books.this_lend = is_lend;
         head = insertNode(head, books);
         goto starts;
         break;
     case 2:
         choser = 0;
         sub_2();
-        while (!(choser == 1 || choser == 2 || choser == 3 || choser == 4))
+        while (!(choser == 1 || choser == 2 || choser == 3))
         {
             scanf("%d", &choser);
         }
@@ -100,6 +108,16 @@ starts:
             break;
         }
         break;
+    case 4:
+        choser = 0;
+        sub_4();
+        scanf("%s %d %s %s", name, &id, date, time);
+        changeLendStatus(head, id, name, date, time);
+        goto starts;
+        break;
+    case 5:
+        break;
+        
     }
     return 0;
 }

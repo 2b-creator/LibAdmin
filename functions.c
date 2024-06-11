@@ -152,6 +152,15 @@ void displayList(nodes *head)
         printf("Book ID: %d\n", current->book_data.book_id);
         printf("Title: %s\n", current->book_data.title);
         printf("Author: %s\n", current->book_data.author);
+        printf("Is lend: %s\n", current->book_data.this_lend ? "yes" : "no");
+        printf("-------------\n");
+        if (current->book_data.this_lend)
+        {
+            printf("Lend data:\n");
+            printf("Name: %s, Date: %d-%d-%d, ", current->book_data.lender.name, current->book_data.lender.lend_time.tm_year, current->book_data.lender.lend_time.tm_mon, current->book_data.lender.lend_time.tm_mday);
+            printf("Time: %d:%d:%d", current->book_data.lender.lend_time.tm_hour, current->book_data.lender.lend_time.tm_min, current->book_data.lender.lend_time.tm_sec);
+        }
+
         printf("\n");
 
         // 移动到下一个节点
@@ -169,6 +178,7 @@ void displayTitle(nodes *head, char *title)
             printf("Book ID: %d\n", current->book_data.book_id);
             printf("Title: %s\n", current->book_data.title);
             printf("Author: %s\n", current->book_data.author);
+            printf("Is lend: %d", current->book_data.this_lend);
             printf("\n");
         }
 
@@ -187,6 +197,7 @@ void displayAuthor(nodes *head, char *author)
             printf("Book ID: %d\n", current->book_data.book_id);
             printf("Title: %s\n", current->book_data.title);
             printf("Author: %s\n", current->book_data.author);
+            printf("Is lend: %d", current->book_data.this_lend);
             printf("\n");
         }
 
@@ -205,10 +216,27 @@ void displayID(nodes *head, int id)
             printf("Book ID: %d\n", current->book_data.book_id);
             printf("Title: %s\n", current->book_data.title);
             printf("Author: %s\n", current->book_data.author);
+            printf("Is lend: %d", current->book_data.this_lend);
             printf("\n");
         }
 
         // 移动到下一个节点
+        current = current->next;
+    }
+}
+
+void changeLendStatus(nodes *head, int id, char *name, char *date, char *time)
+{
+    nodes *current = head;
+    while (current != NULL)
+    {
+        if (current->book_data.book_id == id)
+        {
+            current->book_data.this_lend = 1;
+            strcpy(current->book_data.lender.name, name);
+            sscanf(date, "%d-%d-%d", &current->book_data.lender.lend_time.tm_year, &current->book_data.lender.lend_time.tm_mon, &current->book_data.lender.lend_time.tm_mday);
+            sscanf(time, "%d:%d:%d", &current->book_data.lender.lend_time.tm_hour, &current->book_data.lender.lend_time.tm_min, &current->book_data.lender.lend_time.tm_sec);
+        }
         current = current->next;
     }
 }

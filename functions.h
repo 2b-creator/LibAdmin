@@ -7,3 +7,4 @@ void displayAuthor(nodes *head, char *author);
 void displayID(nodes *head, int id);
 nodes *deleteNodeName(nodes *head, char title[]);
 nodes *deleteNodeAuthor(nodes *head, char *author);
+void changeLendStatus(nodes *head, int id, char *name, char *date, char *time);
